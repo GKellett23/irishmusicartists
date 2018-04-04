@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Hello, world!</title>
+    {% include 'header_includes.html' %}
+</head>
+<body>
+<div class="container-fluid">
+    <div id="createAccount">
+        <h3>Create your account</h3>
+        <form action="/createArtistAccount" method="POST" enctype=multipart/form-data>
+            <div class="form-group">
+                <label>Your artist name</label>
+                <input type="text" name="name" placeholder="Your artist name" required/>
+            </div>
+            <div class="form-group">
+                <label>Spotify Account</label>
+                <input type="text" name="spot" placeholder="Your Spotify ID"/>
+            </div>
+            <div class="form-group">
+                <label>Facebook Page</label>
+                <input type="text" name="facebook" placeholder="Your facebook page ID"/>
+            </div>
+            <div class="form-group">
+                <label>Website</label>
+                <input type="text" name="website" placeholder="Your website url"/>
+            </div>
+            <div class="form-group">
+                <label for="bannerArtist">Upload an artist picture</label>
+                <input type="file" name="banner" class="form-control-file" id="bannerArtist">
+            </div>
+            <div class="form-group">
+                <label>City you are from</label>
+                <select name="city" required>
+                    {% for city in cities %}
+                    <option value="{{city['id']}}">{{city['name']}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Genres</label>
+                {% for genre in genres %}
+                <!-- Rounded switch -->
+                <br/>
+                <div class="vertical-align">
+                    <div class="row">
+                        <div class="col">
+                            <b>{{genre['name']}}</b>
+                        </div>
+                        <div class="col">
+                            <label class="switch">
+                                <input type="checkbox" name="genre" value="{{genre['id']}}">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                <label>Let's talk about you</label>
+                <textarea name="biography" placeholder="Tell us about yourself" required></textarea>
+            </div>
+            <input type="hidden" name="user_id" value="{{current_user['id']}}"/>
+            <input type="submit" class="btn btn-primary" value="Create your account"/>
+        </form>
+    </div>
+</div>
+{% include 'nav.html' %}
+{% include 'scripts.html' %}
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Hello, world!</title>
+    {% include 'header_includes.html' %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/map.css') }}"/>
+    <style>
+        div.menu-map {
+            background : #000;
+        }
+
+        div.menu-map a {
+            color : #fff;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid" id="map-container">
+    <div id="map"></div>
+</div>
+<script src="{{ url_for('static', filename='js/map.js') }}"></script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGZ9Vz2vth2Yk84y7MwSpjXrylzvhR-QU&callback=initMap"></script>
+{% include 'nav.html' %}
+{% include 'scripts.html' %}
+</body>
+</html>

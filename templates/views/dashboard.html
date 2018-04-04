@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Hello, world!</title>
+    {% include 'header_includes.html' %}
+    <style>
+        div.menu-dashboard {
+            background : #000;
+        }
+
+        div.menu-dashboard a {
+            color : #fff;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <h3>Dashboard</h3>
+    Hi {{current_user['name']}} !
+    {% if current_user.is_artist%}
+    <div>
+        <h4>Artist Information</h4>
+        <div><b>Artist name :</b>{{ artist_account['name'] }}</div>
+        <div><b>Locality :</b>{{ artist_account['city']['name'] }}</div>
+        <div><b>Genres :</b>
+            {% for genre in artist_account['genres'] %}
+                {{ genre['name'] }}
+            {% endfor %}
+        </div>
+        <div><b>Biography :</b>{{ artist_account['bio'] }}</div>
+        <div><a href="/addEvent" class="btn btn-primary">Add an event</a></div>
+    </div>
+    {% else %}
+    <a href="/createArtistAccount">Create your artist page</a>
+    {% endif%}
+
+</div>
+{% set active_tab = '1' %}
+{% include 'nav.html' %}
+{% include 'scripts.html' %}
+</body>
+</html>

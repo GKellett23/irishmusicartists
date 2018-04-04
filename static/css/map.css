@@ -1,0 +1,13 @@
+.container-fluid {
+    margin : 0;
+    padding : 0;
+}
+#map-container {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+#map {
+    height: 100%;
+    width: 100%;
+}

@@ -1,0 +1,18 @@
+header {
+    padding : 5% 2%;
+
+}
+#map-return {
+    top :1%;
+    left: 1%;
+    position: absolute;
+    background : #000;
+    padding : 12px 20px;
+    font-family : bold;
+    color : #fff;
+}
+
+div.artist-detail {
+
+    margin-top : 3%;
+}

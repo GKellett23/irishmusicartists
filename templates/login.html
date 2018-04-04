@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Hello, world!</title>
+    {% include 'header_includes.html' %}
+</head>
+<body>
+<div class="container-fluid">
+    {% if error %}
+    <div style="margin-top: 1%" class="alert alert-danger" role="alert">
+        {{ error }}
+    </div>
+    {% endif %}
+    <div id="login">
+        <h3>Login to your account</h3>
+        <form action="/login?next={{request.args.get('next')}}" method="POST">
+            <div>
+                <label>Email Address</label>
+                <input type="text" name="email" placeholder="Enter your full name" required/>
+            </div>
+            <div>
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Enter your password" required/>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Login"/>
+        </form>
+    </div>
+    <hr/>
+    <div id="createAccount">
+        <h3>Create your account</h3>
+        <form action="/createAccount?next={{request.args.get('next')}}" method="POST">
+            <div>
+                <label>Full Name</label>
+                <input type="text" name="fullname" placeholder="Enter your full name" required/>
+            </div>
+            <div>
+                <label>Email Address</label>
+                <input type="text" name="email" placeholder="Enter your email address" required/>
+            </div>
+            <div>
+                <label>Password</label>
+                <input type="password" name="password" placeholder="Enter your password" required/>
+            </div>
+            <div>
+                <label>Genres</label>
+                {% for genre in genres %}
+                <!-- Rounded switch -->
+                <br/>
+                <div class="vertical-align">
+                    <div class="row">
+                        <div class="col">
+                            <b>{{genre['name']}}</b>
+                        </div>
+                        <div class="col">
+                            <label class="switch">
+                                <input type="checkbox" name="genre" value="{{genre['id']}}">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <input type="submit" class="btn btn-primary" value="Create your account"/>
+        </form>
+    </div>
+</div>
+{% include 'scripts.html' %}
+</body>
+</html>

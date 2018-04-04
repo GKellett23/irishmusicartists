@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Hello, world!</title>
+    {% include 'header_includes.html' %}
+</head>
+<body>
+<div class="container-fluid">
+    <h1>Playing a Gig ?</h1>
+    <form action="/addEvent" method="POST">
+        <div>
+            <label>Venue</label>
+            <select name="venue" required>
+                {% for venue in venues %}
+                <option value="{{venue['id']}}">{{venue['name']}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label>Date</label>
+            <input type="text" name="date" id="datepicker" required>
+        </div>
+        <input type="hidden" name="band_id" value="{{current_user.id_artist}}"/>
+        <input type="submit" class="btn btn-primary" value="Add Gig"/>
+    </form>
+</div>
+{% include 'nav.html' %}
+{% include 'scripts.html' %}
+</body>
+</html>

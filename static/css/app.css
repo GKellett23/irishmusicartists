@@ -1,0 +1,19 @@
+body {
+    padding-bottom : 15%;
+}
+nav {
+    position : fixed;
+    bottom : 0;
+    width: 100%;
+    text-align: center;
+    border-top: 4px solid black;
+    background: #FFF;
+}
+
+nav div div {
+    padding: 5%;
+}
+
+nav a {
+    color: #000;
+}
