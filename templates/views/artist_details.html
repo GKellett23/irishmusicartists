@@ -7,60 +7,68 @@
     <title>Hello, world!</title>
     {% include 'header_includes.html' %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/artist_details.css') }}"/>
+    <style>
+        header {
+            background-size: auto;
+            background-repeat: no-repeat;
+            background-size: cover;
+            {% if artist.banner %}
+            background-image : url('/{{artist.banner}}')
+            {% else %}
+            background: rgba(0,0,0, 0.5)
+            {% endif %}
+        }
+    </style>
 </head>
 <body>
 <a id="map-return" class="rounded-circle" href="/eventsAround"><</a>
-{% if artist.banner %}
-<header style="">
-    {% else %}
-    <header style="background: rgba(0,0,0, 0.5)">
-        {% endif %}
 
-        <h1>{{ artist.name }}</h1>
-        <div>
-            {% for genre in genres %}
-            <span class="genre">
+<header>
+    <h1>{{ artist.name }}</h1>
+    <div>
+        {% for genre in genres %}
+        <span class="genre">
             {{ genre.name }}
             </span>
-            {% endfor %}
-        </div>
-    </header>
-
-    <div class="container-fluid">
-        <p>{{ artist.bio }}</p>
-        <hr/>
-        <div>
-            <h5>Concerts in Ireland</h5>
-            {% for event in events %}
-            <div class="artist-gig">
-                <div class="date">{{event['date']}}</div>
-                <div class="date">{{event['venue_name']}}</div>
-            </div>
-            {% endfor %}
-        </div>
-        <hr/>
-        <div>
-            <h5>Related Artists</h5>
-            {% for related_artist in related %}
-            <div class="related-artist row">
-                <div class="col-2">
-                    {% if artist.banner %}
-                    <img width="100%" src="/static/medias/artist-details/{{artist.id}}/banner/{{artist.banner}}"/>
-                    {% else %}
-                    <img width="100%" src="{{ url_for('static', filename='medias/artist-details/nopic.png') }}"/>
-                    {% endif %}
-                </div>
-                <div class="col-8">
-                    {{related_artist.name}} -
-                    {% for related_genre in related_artist.genre %}
-                    {{related_genre}},
-                    {% endfor %}
-                </div>
-            </div>
-            {% endfor %}
-        </div>
+        {% endfor %}
     </div>
-    {% include 'nav.html' %}
-    {% include 'scripts.html' %}
+</header>
+
+<div class="container-fluid">
+    <p>{{ artist.bio }}</p>
+    <hr/>
+    <div>
+        <h5>Concerts in Ireland</h5>
+        {% for event in events %}
+        <div class="artist-gig">
+            <div class="date">{{event['date']}}</div>
+            <div class="date">{{event['venue_name']}}</div>
+        </div>
+        {% endfor %}
+    </div>
+    <hr/>
+    <div>
+        <h5>Related Artists</h5>
+        {% for related_artist in related %}
+        <div class="related-artist row">
+            <div class="col-2">
+                {% if artist.banner %}
+                <img width="100%" src="/static/medias/artist-details/{{artist.id}}/banner/{{artist.banner}}"/>
+                {% else %}
+                <img width="100%" src="{{ url_for('static', filename='medias/artist-details/nopic.png') }}"/>
+                {% endif %}
+            </div>
+            <div class="col-8">
+                {{related_artist.name}} -
+                {% for related_genre in related_artist.genre %}
+                {{related_genre}},
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% include 'nav.html' %}
+{% include 'scripts.html' %}
 </body>
 </html>

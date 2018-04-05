@@ -1,6 +1,7 @@
 header {
     padding : 5% 2%;
-
+    color : #fff;
+    text-align: center;
 }
 #map-return {
     top :1%;

@@ -14,7 +14,7 @@ def get_all_events(dao):
     result = []
     for evt in all_evts:
         if evt:
-            result.append(all_evts.get(evt))
+            result.append(evt)
 
     return result
 

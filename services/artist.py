@@ -49,7 +49,10 @@ def link_user_to_artist(user, artist, dao):
 
 
 def get_artist(id_artist, dao):
-    return dao.get_id_from_table('band', id_artist)
+    result = dao.get_id_from_table('band', id_artist)
+    if result and result.get('banner'):
+        result['banner'] = "static/medias/artist-details/{0}/banner/{1}".format(id_artist, result['banner'])
+    return result
 
 
 def get_all_artist(dao):
