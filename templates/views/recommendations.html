@@ -4,9 +4,22 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Hello, world!</title>
+    <title>Irish Music Artist : Recommendations</title>
     {% include 'header_includes.html' %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/artist_details.css') }}"/>
+    <style>
+        div.menu-discover {
+            background : #000;
+        }
+
+        div.menu-discover a {
+            color : #fff;
+        }
+        div.artist-detail {
+
+            margin-top : 3%;
+        }
+
+    </style>
 </head>
 <body>
 <header>
@@ -17,9 +30,9 @@
     <div class="artist-detail row">
         <div class="col-4">
             {% if artist.banner %}
-                <img width="100%" src="/static/medias/artist-details/{{artist.id}}/banner/{{artist.banner}}" />
+            <img width="100%" src="/static/medias/artist-details/{{artist.id}}/banner/{{artist.banner}}"/>
             {% else %}
-                <img width="100%" src="{{ url_for('static', filename='medias/artist-details/nopic.png') }}"/>
+            <img width="100%" src="{{ url_for('static', filename='medias/artist-details/nopic.png') }}"/>
             {% endif %}
         </div>
         <div class="col-8">

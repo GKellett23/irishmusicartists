@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Hello, world!</title>
+    <title>Irish Music Artist : Dashboard</title>
     {% include 'header_includes.html' %}
     <style>
         div.menu-dashboard {
@@ -21,13 +21,13 @@
     <h3>Dashboard</h3>
     Hi {{current_user['name']}} !
     {% if current_user.is_artist%}
-    <div>
+    <div id="artist-information">
         <h4>Artist Information</h4>
         <div><b>Artist name :</b>{{ artist_account['name'] }}</div>
         <div><b>Locality :</b>{{ artist_account['city']['name'] }}</div>
         <div><b>Genres :</b>
             {% for genre in artist_account['genres'] %}
-                {{ genre['name'] }}
+            {{ genre['name'] }}
             {% endfor %}
         </div>
         <div><b>Biography :</b>{{ artist_account['bio'] }}</div>
@@ -36,7 +36,31 @@
     {% else %}
     <a href="/createArtistAccount">Create your artist page</a>
     {% endif%}
-
+    <br/>
+    <div>
+        <h3>Genres you like</h3>
+        <form action="/updateUserGenres" method="POST">
+            {% for genre in genres %}
+            <br/>
+            <div class="row">
+                <div class="col">
+                    <b>{{genre['name']}}</b>
+                </div>
+                <div class="col">
+                    <label class="switch">
+                        {% if genre['id']|string in current_user["genre"] %}
+                        <input type="checkbox" checked="checked" name="genre" value="{{genre['id']}}">
+                        {% else %}
+                        <input type="checkbox" name="genre" value="{{genre['id']}}">
+                        {% endif %}
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+            {% endfor %}
+            <input type="submit" value="Update genres" class="btn btn-primary"/>
+        </form>
+    </div>
 </div>
 {% set active_tab = '1' %}
 {% include 'nav.html' %}

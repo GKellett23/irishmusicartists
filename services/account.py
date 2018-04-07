@@ -7,7 +7,7 @@ def create_account(form, dao):
                     return False
 
     user_genre = []
-    for genre in form['genre']:
+    for genre in form.getlist('genre'):
         user_genre.append(genre)
 
     count = dao.get_table_count('user') + 1

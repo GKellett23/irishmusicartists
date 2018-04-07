@@ -90,7 +90,8 @@ def dashboard():
         artist_account = artist.get_artist(current_user.id_artist, firebase_dao)
         artist_account['city'] = city.get_city_for_id(artist_account['locality'], firebase_dao)
         artist_account['genres'] = genre.get_genre_for_list(artist_account['genre'], firebase_dao)
-    return render_template("views/dashboard.html", artist_account=artist_account)
+        genres = genre.get_all_genres(firebase_dao)
+    return render_template("views/dashboard.html", artist_account=artist_account, genres=genres)
 
 
 @app.route('/addEvent', methods=['POST', 'GET'])
@@ -112,11 +113,13 @@ def recommendations():
 
 
 @app.route('/eventsAround', methods=['GET'])
+@login_required
 def events_around():
     return render_template('views/map.html')
 
 
 @app.route('/getEvents', methods=['POST'])
+@login_required
 def get_events():
     all_events = event.get_all_events(firebase_dao)
     all_venue = venue.get_all_venue(firebase_dao)
@@ -125,6 +128,7 @@ def get_events():
 
 
 @app.route('/showArtist/<id_artist>')
+@login_required
 def show_artist(id_artist):
     res = artist.get_artist(id_artist, firebase_dao)
     artist_genre = genre.get_genre_for_list(res['genre'], firebase_dao)
@@ -139,6 +143,7 @@ def show_artist(id_artist):
 
 
 @app.route('/artistSuggest')
+@login_required
 def artist_suggest():
     user_genre = current_user.genre
     artists = artist.get_all_artists_for_genre(user_genre, firebase_dao)
@@ -149,6 +154,13 @@ def artist_suggest():
         current_artist['genres'] = genre.get_genre_for_list(current_artist['genre'], firebase_dao)
 
     return render_template('views/recommendations.html', artists=artists)
+
+
+@app.route('/updateUserGenres', methods=['POST'])
+@login_required
+def update_user_genres():
+    genre.update_user_genres(current_user.id, request.form, firebase_dao)
+    return redirect('/dashboard')
 
 
 if __name__ == '__main__':
