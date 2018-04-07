@@ -11,15 +11,19 @@ function geocodeAddress(geocoder, resultsMap, event) {
                                             position: results[0].geometry.location
                                             });
 
-        contentString = '';
+        contentString = '<h6>' + event.venue.name + '</h6><p>' + event.venue.address + '</p>' ;
         for (var i = 0; i < event.events.length; i++) {
 
-            contentString += '<div>'
+            contentString += '<hr/><div><span style="display: inline-block">'
             + '<b>Date : </b>' + event.events[i].event.date + '<br/>'
-            + '<b>Artist : </b><a href="/showArtist/' +event.events[i].artist.id +'">' + event.events[i].artist.name + '</a>'
-            + '</div><br/>' ;
-        }
+            + '<b>Artist : </b><a href="/showArtist/' +event.events[i].artist.id +'">'
+            + event.events[i].artist.name + '</a></span>';
 
+            for (var j = 0; j < event.events[i].artist.genres.length; j++) {
+                contentString += '<span class="genre-label">' + event.events[i].artist.genres[j] + '</span>'
+            }
+            + '</div><br/>'
+        }
         var infowindow = new google.maps.InfoWindow({
           content: contentString
         });

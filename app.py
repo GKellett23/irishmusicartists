@@ -131,6 +131,12 @@ def get_events():
     all_events = event.get_all_events(firebase_dao)
     all_venue = venue.get_all_venue(firebase_dao)
     all_bands = artist.get_all_artist(firebase_dao)
+    for band in all_bands:
+        genres = genre.get_genre_for_list(band['genre'], firebase_dao)
+        band['genres'] = []
+        for current_genre in genres:
+            band['genres'].append(current_genre['name'])
+
     return json.dumps({'venues': all_venue, 'events': all_events, 'artists': all_bands})
 
 
