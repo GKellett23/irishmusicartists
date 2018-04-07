@@ -6,9 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Irish Music Artist</title>
     {% include 'header_includes.html' %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 </head>
 <body>
-<h1>Irish Music Artist</h1>
-<a href="/dashboard">Start now !</a>
+<div id="index-title">
+    <h1>Irish Music Artist</h1>
+    <a href="/dashboard">Start now !</a>
+</div>
 </body>
 </html>

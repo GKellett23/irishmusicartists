@@ -1,5 +1,5 @@
 from flask import Flask, redirect, request, abort, render_template
-from flask_login import LoginManager, login_required, login_user, current_user
+from flask_login import LoginManager, login_required, login_user, current_user, logout_user
 from dao import firebase_dao
 from models.user import User
 from services import account, city, genre, artist, event, venue
@@ -80,6 +80,13 @@ def login():
     else:
         genres = genre.get_all_genres(firebase_dao)
         return render_template("login.html", genres=genres)
+
+
+@app.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return redirect('/')
 
 
 @app.route('/dashboard')

@@ -19,7 +19,9 @@
 <body>
 <div class="container-fluid">
     <h3>Dashboard</h3>
-    Hi {{current_user['name']}} !
+    <div>
+    Logged in as {{current_user['name']}} ! (<a href="/logout">logout</a>)
+    </div>
     {% if current_user.is_artist%}
     <div id="artist-information">
         <h4>Artist Information</h4>
