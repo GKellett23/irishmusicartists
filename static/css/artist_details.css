@@ -1,8 +1,9 @@
 header {
-    padding : 5% 2%;
+    padding : 14% 2% 1% 2%;
     color : #fff;
     text-align: center;
 }
+#artist-header {}
 #map-return {
     top :1%;
     left: 1%;
@@ -16,4 +17,27 @@ header {
 div.artist-detail {
 
     margin-top : 3%;
+}
+span.genre {
+    color : #75c6da;
+}
+.details {
+    background: url('/static/medias/icons/artist_icons.png');
+    background-repeat : no-repeat;
+}
+.details a { color : #000; }
+.website {
+    padding-left: 35px;
+    height: 32px;
+    background-position: 0 0;
+}
+.facebook {
+    padding-left: 35px;
+    height: 32px;
+    background-position: 0 -35px;
+}
+.spotify {
+    padding-left: 35px;
+    height: 32px;
+    background-position: 0 -70px;
 }

@@ -149,6 +149,12 @@ def show_artist(id_artist):
     artist_events = event.get_artist_events(res['id'], firebase_dao)
     venue.populate_venue_for_event(artist_events, firebase_dao)
     related = artist.get_artist_for_genre(res['id'], res['genre'], firebase_dao)
+    for related_artist in related:
+        related_artist['genres'] = []
+        genres = genre.get_genre_for_list(related_artist['genre'], firebase_dao)
+        for related_genre in genres:
+            related_artist['genres'].append(related_genre['name'])
+
     return render_template('views/artist_details.html',
                            artist=res,
                            genres=artist_genre,

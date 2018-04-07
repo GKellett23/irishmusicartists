@@ -17,3 +17,10 @@ nav div div {
 nav a {
     color: #000;
 }
+span.genre-label {
+    margin : 0 2%;
+    padding : 2%;
+    border : 1px solid #c6c8ca;
+    background: #d6d8d9;
+    display: inline-block;
+}

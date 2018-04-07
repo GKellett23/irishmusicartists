@@ -18,31 +18,72 @@
             background: rgba(0,0,0, 0.5)
             {% endif %}
         }
+
+
+
+
+
+
+
+
+
+
+
     </style>
 </head>
 <body>
 <a id="map-return" class="rounded-circle" href="/eventsAround"><</a>
 
 <header>
-    <h1>{{ artist.name }}</h1>
-    <div>
-        {% for genre in genres %}
-        <span class="genre">
-            {{ genre.name }}
+    <div id="artist-header" class="row">
+        <div class="col">
+            <h1>{{ artist.name }}</h1>
+        </div>
+        <div class="col">
+            {% for genre in genres %}
+            <span class="genre">
+                <b>{{ genre.name }}</b>
             </span>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 </header>
 
 <div class="container-fluid">
-    <p>{{ artist.bio }}</p>
+    <div id="artist-bio">
+        <p>{{ artist.bio }}</p>
+    </div>
+    <div id="artist-icons">
+        <div class="details website">
+            <a href="{{ artist.website }}" target="_blank">
+                <b>{{ artist.website }}</b>
+            </a>
+        </div>
+        <div class="details facebook">
+            <a href="{{ artist.website }}" target="_blank">
+                <b>{{ artist.facebook }}</b>
+            </a>
+        </div>
+        <div class="details spotify">
+            <a href="{{ artist.website }}" target="_blank">
+                <b>{{ artist.spot }}</b>
+            </a>
+        </div>
+    </div>
     <hr/>
     <div>
         <h5>Concerts in Ireland</h5>
         {% for event in events %}
         <div class="artist-gig">
-            <div class="date">{{event['date']}}</div>
-            <div class="date">{{event['venue_name']}}</div>
+            <div class="row">
+                <div class="col-2">
+                    <img src="/static/medias/icons/event.png" style="height:75%" />
+                </div>
+                <div class="col-10">
+                    <div class="date">{{event['date']}}</div>
+                    <div class="venue">{{event['venue_name']}}</div>
+                </div>
+            </div>
         </div>
         {% endfor %}
     </div>
@@ -52,17 +93,24 @@
         {% for related_artist in related %}
         <div class="related-artist row">
             <div class="col-2">
-                {% if artist.banner %}
-                <img width="100%" src="/static/medias/artist-details/{{artist.id}}/banner/{{artist.banner}}"/>
+                {% if related_artist.banner %}
+                <img width="100%"
+                     src="/static/medias/artist-details/{{related_artist.id}}/banner/{{related_artist.banner}}"/>
                 {% else %}
                 <img width="100%" src="{{ url_for('static', filename='medias/artist-details/nopic.png') }}"/>
                 {% endif %}
             </div>
             <div class="col-8">
-                {{related_artist.name}} -
-                {% for related_genre in related_artist.genre %}
-                {{related_genre}},
-                {% endfor %}
+                <div class="row">
+                    <div class="col">
+                        <a href="/showArtist/{{related_artist.id}}">{{related_artist.name}}</a>
+                    </div>
+                    <div class="col">
+                        {% for related_genre in related_artist.genres %}
+                        <span class="genre-label">{{related_genre}}</span>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
         </div>
         {% endfor %}

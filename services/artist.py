@@ -71,7 +71,7 @@ def get_all_artists_for_genre(genre_list, dao):
     for artist in all_artist:
         if len(artist['genre']) < len(genre_list):
             for genre in artist['genre']:
-                if int(genre) in genre_list:
+                if genre in genre_list:
                     result.append(artist)
         else:
             for genre in genre_list:
