@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Irish Music Artist : Login</title>
+    <title>Irish Music Artists : Login</title>
     {% include 'header_includes.html' %}
 </head>
 <body>
@@ -16,7 +16,11 @@
     {% endif %}
     <div id="login">
         <h3>Login to your account</h3>
+        {% if request.args.get('next') %}
         <form action="/login?next={{request.args.get('next')}}" method="POST">
+        {% else %}
+        <form action="/login?next=dashboard" method="POST">
+        {% endif %}
             <div>
                 <label>Email Address</label>
                 <input type="text" name="email" placeholder="Enter your full name" required/>
