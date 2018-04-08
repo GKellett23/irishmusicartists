@@ -3,14 +3,16 @@ var map;
 function geocodeAddress(geocoder, resultsMap, event) {
 
     geocoder.geocode({'address': event.venue.address}, function(results, status) {
-
+    // if status is ok, means the geocoding service managed to retrieve the location of the address
     if (status === 'OK') {
         //resultsMap.setCenter(results[0].geometry.location);
         var marker = new google.maps.Marker({
                                             map: resultsMap,
+                                            // uses the location object from the result to place the marker on the map
                                             position: results[0].geometry.location
                                             });
 
+        // creates the marker's content
         contentString = '<h6>' + event.venue.name + '</h6><p>' + event.venue.address + '</p>' ;
         for (var i = 0; i < event.events.length; i++) {
 
@@ -24,10 +26,12 @@ function geocodeAddress(geocoder, resultsMap, event) {
             }
             + '</div><br/>'
         }
+        // add the window info related to the venue with all the concerts happening
         var infowindow = new google.maps.InfoWindow({
           content: contentString
         });
 
+        // add a click event, when uses clicks display the info window
         marker.addListener('click', function() {
           infowindow.open(resultsMap, marker);
         });
@@ -58,9 +62,12 @@ function populateMap(map) {
         var resp = request.responseText;
         var values = JSON.parse(resp)
 
+        // gets all the information from the python backend
         var venues = values.venues;
         var events = values.events;
         var artists = values.artists;
+
+        // all the events that are happening in the venues
         var allGrouped = [];
         var current;
         for (var i = 0; i < venues.length; i++) {

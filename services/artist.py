@@ -13,10 +13,13 @@ def create_artist_account(request, dao):
         genres.append(genre)
 
     banner = ''
+    # saves the banner in the filesystem to store artist's picture
     if 'banner' in request.files:
         f = request.files['banner']
         if not os.path.exists("static/medias/artist-details/{0}/banner".format(id_artist)):
             os.makedirs("static/medias/artist-details/{0}/banner/".format(id_artist))
+        # uses secure_filename in order to prevent the user to put weird characters like / that may harm the system
+        # replaces all those characters by _ char instead
         banner = secure_filename(f.filename)
         filepath = "static/medias/artist-details/{0}/banner/{1}".format(id_artist, banner)
         f.save(filepath)

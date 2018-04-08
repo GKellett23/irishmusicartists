@@ -39,6 +39,8 @@ def create_account():
     form = request.form
     user_dict = account.create_account(form, firebase_dao)
     user = User(user_dict['id'], user_dict['name'], user_dict['password'], user_dict['email'], user_dict.get('genre'))
+    # using the support of flask_login in order to register the current user
+    # who just created its account using the builtin login_user function
     login_user(user)
     return redirect(request.args.get("next"))
 
@@ -46,10 +48,15 @@ def create_account():
 @app.route('/createArtistAccount', methods=['GET', 'POST'])
 @login_required
 def create_artist_account():
+    # handling requests coming from html form
     if request.method == 'POST':
+        # Sends the full request rather than only the form because files are in a separate object in the request
         artistaccount = artist.create_artist_account(request, firebase_dao)
+        # user just created an artist page, linking the newly created artist to the current logged user
         artist.link_user_to_artist(current_user, artistaccount, firebase_dao)
     else:
+        # otherwise, the browser is actually pointing to /login
+        # means the login page will be displayed to him rather than processing the form
         if current_user:
             if not current_user.is_artist:
                 cities = city.get_all_cities(firebase_dao)
@@ -61,6 +68,7 @@ def create_artist_account():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     genres = genre.get_all_genres(firebase_dao)
+    # same mechanism as create_artist_account function
     if request.method == 'POST':
         username = request.form['email']
         password = request.form['password']
