@@ -100,14 +100,13 @@ def logout():
 @app.route('/dashboard')
 @login_required
 def dashboard():
+    artist_account = None
     if current_user.is_artist:
         artist_account = artist.get_artist(current_user.id_artist, firebase_dao)
         artist_account['city'] = city.get_city_for_id(artist_account['locality'], firebase_dao)
         artist_account['genres'] = genre.get_genre_for_list(artist_account['genre'], firebase_dao)
-        genres = genre.get_all_genres(firebase_dao)
-        return render_template("views/dashboard.html", artist_account=artist_account, genres=genres)
-    else:
-        return redirect('/login?next=dashboard')
+    genres = genre.get_all_genres(firebase_dao)
+    return render_template("views/dashboard.html", artist_account=artist_account, genres=genres)
 
 
 @app.route('/addEvent', methods=['POST', 'GET'])
