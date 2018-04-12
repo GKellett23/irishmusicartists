@@ -1,6 +1,7 @@
 from flask_login import UserMixin
 
 
+# User class from https://stackoverflow.com/questions/37148414/updating-a-single-value-in-firebase-with-python
 class User(UserMixin):
     def __init__(self, id, name, password, email, genre):
         self.id = id
