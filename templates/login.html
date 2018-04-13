@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Irish Music Artists : Login</title>
+    {# includes all the css files required in all pages #}
     {% include 'header_includes.html' %}
 </head>
 <body>
@@ -72,6 +73,10 @@
         </form>
     </div>
 </div>
+
+{# includes all common parts in the footer #}
+{# javascripts file are opened here as it is more efficient  #}
+{# see https://stackoverflow.com/questions/5329807/benefits-of-loading-js-at-the-bottom-as-opposed-to-the-top-of-the-document for explanation #}
 {% include 'scripts.html' %}
 </body>
 </html>

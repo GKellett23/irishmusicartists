@@ -5,7 +5,7 @@ function geocodeAddress(geocoder, resultsMap, event) {
     geocoder.geocode({'address': event.venue.address}, function(results, status) {
     // if status is ok, means the geocoding service managed to retrieve the location of the address
     if (status === 'OK') {
-        //resultsMap.setCenter(results[0].geometry.location);
+        // creates a google maps marker object to be added at geocoded location
         var marker = new google.maps.Marker({
                                             map: resultsMap,
                                             // uses the location object from the result to place the marker on the map
@@ -44,7 +44,8 @@ function geocodeAddress(geocoder, resultsMap, event) {
 }
 
 function displayEvents(map, events) {
-    console.log(events);
+    // initialise geocoder and for each event, calls the geocoder
+    // in order to geocode the venue address and place it on the map
     var geocoder = new google.maps.Geocoder();
     for (var i = 0; i < events.length; i++) {
         geocodeAddress(geocoder, map, events[i])
@@ -53,6 +54,9 @@ function displayEvents(map, events) {
 
 function populateMap(map) {
 
+    // creates an ajax request and sends it to the python backend in order to get the events
+    // jquery is not used as it may not have been initialized when the google maps api does its initialisation
+    // code coming from http://youmightnotneedjquery.com/
     var request = new XMLHttpRequest();
     request.open('POST', '/getEvents', true);
 
@@ -99,8 +103,10 @@ function populateMap(map) {
     request.send();
 }
 
+// method called by google maps after it has initialized the library
+// this in order to prepare everything before running the code of the application
 function initMap() {
-
+    // Set the map location to dublin city centre
     var dublin = {lat: 53.350140, lng: -6.266155 };
 
     map = new google.maps.Map(document.getElementById('map'), {
