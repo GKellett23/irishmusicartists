@@ -1,6 +1,6 @@
 flask
 urllib3==1.22
-requests==1.2.0
+requests==2.20.0
 python-firebase==1.2
 flask-login==0.4.1
 gunicorn==19.7.1
