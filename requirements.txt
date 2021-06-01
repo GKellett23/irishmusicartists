@@ -1,5 +1,5 @@
 flask
-urllib3==1.22
+urllib3==1.26.5
 requests==1.2.0
 python-firebase==1.2
 flask-login==0.4.1
